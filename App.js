@@ -1,20 +1,54 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import HomeScreens from './screens/HomeScreens';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { TouchableOpacity, View } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import ProfileScreens from './screens/ProfileScreens';
+import NotificationScreens from './screens/NotificationScreens';
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: '#157cdb',
+          tabBarInactiveTintColor: '#262626',
+        }}>
+          <Tab.Screen
+            name="Home"
+            component={HomeScreens}
+            options={{
+              tabBarLabel: 'Trang chủ',
+              tabBarIcon: ({ color }) => (
+                <MaterialIcons name="home" size={26} color={color} />
+              ),
+            }}
+          />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+        <Tab.Screen
+          name="Notification"
+          component={NotificationScreens}
+          options={{
+            tabBarLabel: 'Thông báo',
+            tabBarIcon: ({ color }) => (
+              <MaterialIcons name="notifications" size={26} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={ProfileScreens}
+          options={{
+            tabBarLabel: 'Cá nhân',
+            tabBarIcon: ({ color }) => (
+              <MaterialIcons name="person" size={26} color={color} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+};
