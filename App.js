@@ -5,18 +5,28 @@ import { TouchableOpacity, View } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ProfileScreens from './screens/ProfileScreens';
 import NotificationScreens from './screens/NotificationScreens';
+import rootReducer from './store/index'
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import ProductScreens from './screens/ProductScreens';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
 
+const store = createStore(
+  rootReducer
+)
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          headerShown: false,
-          tabBarActiveTintColor: '#157cdb',
-          tabBarInactiveTintColor: '#262626',
-        }}>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={{
+            headerShown: false,
+            tabBarActiveTintColor: '#157cdb',
+            tabBarInactiveTintColor: '#262626',
+          }}>
           <Tab.Screen
             name="Home"
             component={HomeScreens}
@@ -28,27 +38,35 @@ export default function App() {
             }}
           />
 
-        <Tab.Screen
-          name="Notification"
-          component={NotificationScreens}
-          options={{
-            tabBarLabel: 'Thông báo',
-            tabBarIcon: ({ color }) => (
-              <MaterialIcons name="notifications" size={26} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={ProfileScreens}
-          options={{
-            tabBarLabel: 'Cá nhân',
-            tabBarIcon: ({ color }) => (
-              <MaterialIcons name="person" size={26} color={color} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+          <Tab.Screen
+            name="Notification"
+            component={NotificationScreens}
+            options={{
+              tabBarLabel: 'Thông báo',
+              tabBarIcon: ({ color }) => (
+                <MaterialIcons name="notifications" size={26} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Profile"
+            component={ProfileScreens}
+            options={{
+              tabBarLabel: 'Cá nhân',
+              tabBarIcon: ({ color }) => (
+                <MaterialIcons name="person" size={26} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="ProductScreens"
+            component={ProductScreens}
+            options={{ tabBarButton: () => null, tabBarVisible: false }} 
+          />
+        </Tab.Navigator>
+        
+      </NavigationContainer>
+    </Provider>
+
   );
 };

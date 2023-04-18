@@ -6,10 +6,12 @@ const item1 = require('../assets/OIPitem.jpg')
 const item2 = require('../assets/2.jpg')
 const item3 = require('../assets/3.jpg')
 const item4 = require('../assets/4.jpg')
+import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 
 export default function HomeSectionComponent({
   data
 }) {
+  const navigationRef = useNavigationContainerRef(); 
   const dataSample = {
     title: "Điện thoại - máy tính bảng",
     filterList: [
