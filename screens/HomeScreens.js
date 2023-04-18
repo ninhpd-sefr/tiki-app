@@ -3,11 +3,15 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import HomeSectionComponent from '../components/HomeSectionComponent';
 import dataDivice from '../constant/ConstantData'
+import { useSelector, useDispatch } from "react-redux";
+import { actAddNumber } from '../store/product/action';
+import ProductScreens from './ProductScreens';
 
+export default function HomeScreens({ navigation }) {
+  const dispatch = useDispatch()
+  const Product = useSelector(state => state.Product)
+  console.log(Product);
 
-export default function HomeScreens() {
-  console.log(dataDivice.dataBeauty);
-  
   return (
     <View>
       <StatusBar barStyle="light-content" />
@@ -24,6 +28,10 @@ export default function HomeScreens() {
       {/* Body container */}
       <View style={styles.bodyContainer}>
         <ScrollView>
+          <Text
+            onPress={() => navigation.navigate(ProductScreens)}
+          >Ninh Đăng Phạm {Product.total}</Text>
+
           <HomeSectionComponent data={dataDivice.dataDivice} />
           <HomeSectionComponent data={dataDivice.dataBeauty} />
           <HomeSectionComponent data={dataDivice.dataElection} />
@@ -79,3 +87,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   }
 });
+
+console.log();
+
+
+
+

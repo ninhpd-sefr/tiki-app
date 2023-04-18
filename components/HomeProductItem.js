@@ -2,7 +2,8 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 
 export default function HomeProductItem({ image, name, price }) {
   return (
-    <View style={styles.itemContainer}>
+    <View 
+    style={styles.itemContainer}>
     <Image
       style={styles.itemImg}
       source={image}
