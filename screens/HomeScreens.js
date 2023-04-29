@@ -6,6 +6,7 @@ import dataDivice from '../constant/ConstantData'
 import { useSelector, useDispatch } from "react-redux";
 import { actAddNumber } from '../store/product/action';
 import ProductScreens from './ProductScreens';
+import CartScreens from './CartScreens';
 
 export default function HomeScreens({ navigation }) {
   const dispatch = useDispatch()
@@ -20,19 +21,19 @@ export default function HomeScreens({ navigation }) {
           <FontAwesome name='search' size={24} color={"#969696"} />
           <Text style={styles.inputText}>Bạn tìm gì hôm nay</Text>
         </View>
-        <View style={styles.cartContainer}>
-          <FontAwesome name='shopping-cart' size={24} color={"#fff"} />
+        <View style={styles.cartContainer}
+        
+        >
+          <FontAwesome 
+           onPress={() => navigation.navigate(ProductScreens)}
+          name='shopping-cart' size={24} color={"#fff"} />
         </View>
       </View>
 
       {/* Body container */}
       <View style={styles.bodyContainer}>
         <ScrollView>
-          <Text
-            onPress={() => navigation.navigate(ProductScreens)}
-          >Ninh Đăng Phạm {Product.total}</Text>
-
-          <HomeSectionComponent data={dataDivice.dataDivice} />
+          <HomeSectionComponent data={dataDivice.dataDivice} navigation={navigation} />
           <HomeSectionComponent data={dataDivice.dataBeauty} />
           <HomeSectionComponent data={dataDivice.dataElection} />
           <HomeSectionComponent data={dataDivice.dataClock} />
@@ -84,7 +85,8 @@ const styles = StyleSheet.create({
   },
   // 
   bodyContainer: {
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    paddingBottom:200
   }
 });
 

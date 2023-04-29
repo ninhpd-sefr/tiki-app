@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import ProductScreens from './screens/ProductScreens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import CartScreens from './screens/CartScreens';
 const Stack = createNativeStackNavigator();
 
 const store = createStore(
@@ -61,6 +62,11 @@ export default function App() {
           <Tab.Screen
             name="ProductScreens"
             component={ProductScreens}
+            options={{ tabBarButton: () => null, tabBarVisible: false }} 
+          />
+           <Tab.Screen
+            name="CartScreens"
+            component={CartScreens}
             options={{ tabBarButton: () => null, tabBarVisible: false }} 
           />
         </Tab.Navigator>

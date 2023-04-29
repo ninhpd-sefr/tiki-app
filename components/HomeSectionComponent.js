@@ -1,17 +1,16 @@
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import HomeProductItem from './HomeProductItem';
 import { useEffect, useState } from 'react';
+import ProductScreens from '../screens/ProductScreens';
 const banner = require('../assets/OIP.jpg');
 const item1 = require('../assets/OIPitem.jpg')
 const item2 = require('../assets/2.jpg')
 const item3 = require('../assets/3.jpg')
 const item4 = require('../assets/4.jpg')
-import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 
 export default function HomeSectionComponent({
-  data
+  data,navigation
 }) {
-  const navigationRef = useNavigationContainerRef(); 
   const dataSample = {
     title: "Điện thoại - máy tính bảng",
     filterList: [
@@ -47,7 +46,8 @@ export default function HomeSectionComponent({
     <ScrollView horizontal={true}>
       <View style={styles.filterContainer}>
         {dataSample.filterList.map((e, index) => (
-          <View
+         <TouchableOpacity>
+           <View
             key={index.toString()}
             style={
               index === 0
@@ -63,6 +63,7 @@ export default function HomeSectionComponent({
               {e}
             </Text>
           </View>
+         </TouchableOpacity>
         ))}
       </View>
     </ScrollView>
@@ -73,7 +74,9 @@ export default function HomeSectionComponent({
       <View style={styles.listItemContainer}>
         {dataSample.imgList.map((e, index) => (
           <View key={index.toString()}>
-            <TouchableOpacity>
+            <TouchableOpacity
+             onPress={() => navigation.navigate(ProductScreens)}
+            >
               <HomeProductItem
                 name="Iphone 13 Pro Max"
                 image={e.image1}
@@ -81,7 +84,9 @@ export default function HomeSectionComponent({
               />
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            <TouchableOpacity
+             onPress={() => navigation.navigate(ProductScreens)}
+            >
               <HomeProductItem
                 name="Iphone 13 Pro Max"
                 image={e.image2}

@@ -1,16 +1,16 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 
-export default function HomeProductItem({ image, name, price }) {
+export default function HomeProductItem({ image, name, price}) {
   return (
-    <View 
-    style={styles.itemContainer}>
-    <Image
-      style={styles.itemImg}
-      source={image}
-    />
-    <Text style={styles.itemName} >{name}</Text>
-    <Text style={styles.itemPrice} >{price} đ</Text>
-  </View>
+    <View
+      style={styles.itemContainer}>
+      <Image
+        style={styles.itemImg}
+        source={image}
+      />
+      <Text style={styles.itemName} >{name}</Text>
+      <Text style={styles.itemPrice} >{price} đ</Text>
+    </View>
   )
 }
 
