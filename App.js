@@ -11,6 +11,7 @@ import { createStore } from 'redux';
 import ProductScreens from './screens/ProductScreens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CartScreens from './screens/CartScreens';
+import LoveScreen from './screens/LoveScreen';
 const Stack = createNativeStackNavigator();
 
 const store = createStore(
@@ -29,7 +30,7 @@ export default function App() {
             tabBarInactiveTintColor: '#262626',
           }}>
           <Tab.Screen
-            name="Home"
+            name="HomeScreens"
             component={HomeScreens}
             options={{
               tabBarLabel: 'Trang chủ',
@@ -59,18 +60,29 @@ export default function App() {
               ),
             }}
           />
+
+          <Tab.Screen
+            name="LoveScreen"
+            component={LoveScreen}
+            options={{
+              tabBarLabel: 'Yêu thích',
+              tabBarIcon: ({ color }) => (
+                <MaterialIcons name="favorite" size={26} color={color} />
+              ),
+            }}
+          />
           <Tab.Screen
             name="ProductScreens"
             component={ProductScreens}
-            options={{ tabBarButton: () => null, tabBarVisible: false }} 
+            options={{ tabBarButton: () => null, tabBarVisible: false }}
           />
-           <Tab.Screen
+          <Tab.Screen
             name="CartScreens"
             component={CartScreens}
-            options={{ tabBarButton: () => null, tabBarVisible: false }} 
+            options={{ tabBarButton: () => null, tabBarVisible: false }}
           />
         </Tab.Navigator>
-        
+
       </NavigationContainer>
     </Provider>
 
