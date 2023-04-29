@@ -5,6 +5,7 @@ export default{
     textBlack:"#222222",
     textGray:"#969696",
     white:"#fff",
-    green: "#57ff48",
-    submit:"#fe444e"
+    green: "#0d920f",
+    submit:"#fe444e",
+    yellow:'#ffb600'
 }

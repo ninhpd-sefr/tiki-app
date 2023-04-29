@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import HomeSectionComponent from '../components/HomeSectionComponent';
 import dataDivice from '../constant/ConstantData'
 import { useSelector, useDispatch } from "react-redux";
 import { actAddNumber } from '../store/product/action';
-import ProductScreens from './ProductScreens';
 import CartScreens from './CartScreens';
+import color from '../assets/constant/color';
 
 export default function HomeScreens({ navigation }) {
   const dispatch = useDispatch()
@@ -22,11 +22,12 @@ export default function HomeScreens({ navigation }) {
           <Text style={styles.inputText}>Bạn tìm gì hôm nay</Text>
         </View>
         <View style={styles.cartContainer}
-        
         >
-          <FontAwesome 
-           onPress={() => navigation.navigate(ProductScreens)}
-          name='shopping-cart' size={24} color={"#fff"} />
+          <TouchableOpacity>
+            <FontAwesome
+              onPress={() => navigation.navigate(CartScreens)}
+              name='shopping-cart' size={24} color={"#fff"} />
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -58,12 +59,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingTop: 50,
     paddingBottom: 4,
-    backgroundColor: "#1e88e5"
+    backgroundColor: color.primary
 
   },
   inputContainer: {
     flexDirection: 'row',
-    backgroundColor: "#fff",
+    backgroundColor: color.white,
     flex: 1,
     marginLeft: 10,
     alignItems: "center",
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     borderRadius: 2
   },
   inputText: {
-    color: "#969696",
+    color: color.textGray,
     fontSize: 14,
     marginLeft: 8,
     fontWeight: "500"
@@ -85,8 +86,8 @@ const styles = StyleSheet.create({
   },
   // 
   bodyContainer: {
-    backgroundColor: "#fff",
-    paddingBottom:200
+    backgroundColor: color.white,
+    paddingBottom: 200
   }
 });
 

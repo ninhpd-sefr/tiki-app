@@ -1,38 +1,35 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import React from 'react'
 import color from '../assets/constant/color'
-import CartItem from '../components/CartItem'
 import CartBody from '../components/CartBody'
 import HomeScreens from './HomeScreens'
 
 
 
-export default function CartScreens({
-  navigation
-}) {
+export default function LoveScreen({navigation}) {
 
   return (
     <ScrollView>
-          <View style={styles.cartContainer}>
-      <View style={styles.cartHeader}>
+          <View style={styles.loveContainer}>
+      <View style={styles.loveHeader}>
         <TouchableOpacity
-          style={styles.cartHeaderBack}
+          style={styles.loveHeaderBack}
+          onPress={() => navigation.navigate(HomeScreens)}
         >
           <Text
-            style={styles.cartHeaderBack}
-            onPress={() => navigation.navigate(HomeScreens)}
+            style={styles.loveHeaderBack}
           >
             X
           </Text>
         </TouchableOpacity>
         <Text
-          style={styles.cartHeaderText}
-        >Giỏ hàng</Text>
-        <Text style={styles.cartHeaderFix}></Text>
+          style={styles.loveHeaderText}
+        >Yêu thích</Text>
+        <Text style={styles.loveHeaderFix}></Text>
       </View>
       {/*  */}
      
-      <CartBody />
+      <CartBody  love={true} />
 
     </View>
     </ScrollView>
@@ -40,21 +37,21 @@ export default function CartScreens({
 }
 
 const styles = StyleSheet.create({
-  cartContainer: {
-  }, cartHeader: {
+  loveContainer: {
+  }, loveHeader: {
     paddingTop: 60,
     paddingBottom: 5,
     backgroundColor: color.primary,
     flexDirection: 'row'
-  }, cartHeaderFix: {
+  }, loveHeaderFix: {
     flex: 1,
-  }, cartHeaderText: {
+  }, loveHeaderText: {
     flex: 2,
     textAlign: 'center',
     fontWeight: '500',
     color: color.white,
     fontSize: 28,
-  }, cartHeaderBack: {
+  }, loveHeaderBack: {
     flex: 1,
     textAlign: 'left',
     fontWeight: '500',
