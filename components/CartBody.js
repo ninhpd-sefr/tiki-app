@@ -1,80 +1,41 @@
-import { View, Text, ScrollView, StyleSheet ,TouchableOpacity} from 'react-native'
-import React from 'react'
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import CartItem from './CartItem'
+import { useSelector } from 'react-redux'
 const item4 = require('../assets/4.jpg')
 
-
 export default function CartBody({
-    love
+    love,navigation,HandleDeleteProduct,Cart
 }) {
+    console.log('Body:', Cart);
+    
+    const [data, setData] = useState(Cart)
 
-    const data = [
-        {
-            title: "Iphone 12 Promax - chính hãng",
-            deliverySpeed: "FAST",
-            delivery: "Giao tiết kiệm",
-            number: 2,
-            price: "150.000",
-            oldPrice: "200.000",
-            img: item4
-        },
-        {
-            title: "Iphone 12 Promax - chính hãng",
-            deliverySpeed: "FAST",
-            delivery: "Giao tiết kiệm",
-            number: 2,
-            price: "150.000",
-            oldPrice: "200.000",
-            img: item4
-        },
+    useEffect(() => {
+        setData(Cart)
+    }, [Cart])
 
-        {
-            title: "Iphone 12 Promax - chính hãng",
-            deliverySpeed: "FAST",
-            delivery: "Giao tiết kiệm",
-            number: 2,
-            price: "150.000",
-            oldPrice: "200.000",
-            img: item4
-        },
 
-        {
-            title: "Iphone 12 Promax - chính hãng",
-            deliverySpeed: "FAST",
-            delivery: "Giao tiết kiệm",
-            number: 2,
-            price: "150.000",
-            oldPrice: "200.000",
-            img: item4
-        },
-        ,
-
-        {
-            title: "Iphone 12 Promax - chính hãng",
-            deliverySpeed: "FAST",
-            delivery: "Giao tiết kiệm",
-            number: 2,
-            price: "150.000",
-            oldPrice: "200.000",
-            img: item4
-        },
-
-    ]
-
+    
 
     return (
         <ScrollView>
-            <View style={styles.cartBody}>
+            {Cart ? <View style={styles.cartBody}>
                 {
                     love ? data.map((item, index) => (
                         <TouchableOpacity>
-                            <CartItem love={love} key={index} item={item} />
+                            <CartItem key={index} HandleDeleteProduct={HandleDeleteProduct} navigation={navigation}  love={love} item={item} />
                         </TouchableOpacity>
-                    )) : data.map((item, index) => (
-                        <CartItem love={love} key={index} item={item} />
+                    )) : 
+                    
+                    data.map((item, index) => (
+                        <TouchableOpacity >
+                        <CartItem key={index} HandleDeleteProduct={HandleDeleteProduct} navigation={navigation} item={item} />
+                        </TouchableOpacity>
                     ))
                 }
-            </View>
+            </View> 
+            : <View>Loading ...</View>}
         </ScrollView>
     )
 }

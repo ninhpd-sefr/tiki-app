@@ -3,35 +3,41 @@ import React from 'react'
 import color from '../assets/constant/color'
 import CartBody from '../components/CartBody'
 import HomeScreens from './HomeScreens'
+import { useSelector } from 'react-redux'
 
 
 
-export default function LoveScreen({navigation}) {
+export default function LoveScreen({ navigation }) {
+
+  const Cart = useSelector(state => state.Product.love)
+
 
   return (
     <ScrollView>
-          <View style={styles.loveContainer}>
-      <View style={styles.loveHeader}>
-        <TouchableOpacity
-          style={styles.loveHeaderBack}
-          onPress={() => navigation.navigate(HomeScreens)}
-        >
-          <Text
+      <View style={styles.loveContainer}>
+        <View style={styles.loveHeader}>
+          <TouchableOpacity
             style={styles.loveHeaderBack}
+            onPress={() => navigation.navigate(HomeScreens)}
           >
-            X
-          </Text>
-        </TouchableOpacity>
-        <Text
-          style={styles.loveHeaderText}
-        >Yêu thích</Text>
-        <Text style={styles.loveHeaderFix}></Text>
-      </View>
-      {/*  */}
-     
-      <CartBody  love={true} />
+            <Text
+              style={styles.loveHeaderBack}
+            >
+              X
+            </Text>
+          </TouchableOpacity>
+          <Text
+            style={styles.loveHeaderText}
+          >Yêu thích</Text>
+          <Text style={styles.loveHeaderFix}></Text>
+        </View>
+        {/*  */}
 
-    </View>
+        <View>
+          <CartBody love={true} Cart={Cart} />
+        </View>
+
+      </View>
     </ScrollView>
   )
 }
