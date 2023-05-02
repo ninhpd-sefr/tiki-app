@@ -5,7 +5,7 @@ const item3 = require('../assets/3.jpg')
 const item4 = require('../assets/4.jpg')
 
 
- const dataDivice = {
+ const dataDivice = [{
     title: "Điện thoại SmartPhone",
     filterList: [
         'Tất cả',
@@ -19,10 +19,7 @@ const item4 = require('../assets/4.jpg')
         { image1: item3, image2: item4 },
         { image1: item4, image2: item1 },
     ]
-}
-
-
-const dataBeauty = {
+},{
     title: "Thế giới sắc đẹp - làm đẹp",
     filterList: [
         'Tất cả',
@@ -36,9 +33,7 @@ const dataBeauty = {
         { image1: item3, image2: item4 },
         { image1: item4, image2: item1 },
     ]
-}
-
-const dataElection = {
+},{
     title: "Điện gia dụng",
     filterList: [
         'Tất cả',
@@ -52,9 +47,7 @@ const dataElection = {
         { image1: item3, image2: item4 },
         { image1: item4, image2: item1 },
     ]
-}
-
-const dataClock = {
+},{
     title: "Đồng hồ và trang sức",
     filterList: [
         'Tất cả',
@@ -69,9 +62,12 @@ const dataClock = {
         { image1: item4, image2: item1 },
     ]
 }
+]
+
+
 
 
 
 export default {
-    dataDivice,dataBeauty,dataElection,dataClock
+    dataDivice
 };

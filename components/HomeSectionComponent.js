@@ -10,7 +10,9 @@ const item4 = require('../assets/4.jpg')
 
 export default function HomeSectionComponent({
   data,navigation
-}) {
+}) {  
+  console.log(data);
+  
   const dataSample = {
     title: "Điện thoại - máy tính bảng",
     filterList: [

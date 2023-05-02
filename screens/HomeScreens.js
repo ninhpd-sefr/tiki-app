@@ -3,15 +3,11 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-nati
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import HomeSectionComponent from '../components/HomeSectionComponent';
 import dataDivice from '../constant/ConstantData'
-import { useSelector, useDispatch } from "react-redux";
-import { actAddNumber } from '../store/product/action';
 import CartScreens from './CartScreens';
 import color from '../assets/constant/color';
 
 export default function HomeScreens({ navigation }) {
-  const dispatch = useDispatch()
-  const Product = useSelector(state => state.Product)
-  console.log(Product);
+
 
   return (
     <View>
@@ -19,13 +15,14 @@ export default function HomeScreens({ navigation }) {
       <View style={styles.headerContainer}>
         <View style={styles.inputContainer}>
           <FontAwesome name='search' size={24} color={"#969696"} />
-          <Text style={styles.inputText}>Bạn tìm gì hôm nay</Text>
+          <Text style={styles.inputText}
+          >Bạn tìm gì hôm nay</Text>
         </View>
         <View style={styles.cartContainer}
         >
           <TouchableOpacity>
             <FontAwesome
-              onPress={() => navigation.navigate(CartScreens)}
+              onPress={() => navigation.navigate(CartScreens,{ key: new Date().getTime() })}
               name='shopping-cart' size={24} color={"#fff"} />
           </TouchableOpacity>
         </View>
@@ -34,11 +31,11 @@ export default function HomeScreens({ navigation }) {
       {/* Body container */}
       <View style={styles.bodyContainer}>
         <ScrollView>
-          <HomeSectionComponent data={dataDivice.dataDivice} navigation={navigation} />
-          <HomeSectionComponent data={dataDivice.dataBeauty} />
-          <HomeSectionComponent data={dataDivice.dataElection} />
-          <HomeSectionComponent data={dataDivice.dataClock} />
-
+          {
+            dataDivice.dataDivice.map((data,index)=>(
+              <HomeSectionComponent data={data} key={index} navigation={navigation} />
+            ))
+          }
         </ScrollView>
       </View>
 

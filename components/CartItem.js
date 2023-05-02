@@ -1,12 +1,22 @@
 import { View, Text, StyleSheet, Image, Button } from 'react-native'
 import React from 'react'
 import color from '../assets/constant/color';
+import { useDispatch } from 'react-redux';
+import { actRemoveProductToCart } from '../store/product/action';
+import CartScreens from '../screens/CartScreens';
+import { useNavigation } from '@react-navigation/native';
+import HomeScreens from '../screens/HomeScreens';
+
 
 export default function CartItem({
-    item, love
+    item, love,navigation,HandleDeleteProduct
 }) {
-    console.log("love: ", love);
-
+    const dispatch = useDispatch()
+    const deleteProduct = () => {
+        HandleDeleteProduct()
+        dispatch(actRemoveProductToCart(2))
+        navigation.navigate(CartScreens, { key: new Date().getTime() })
+    }
 
     return (
         <View style={styles.cartItemContainer}>
@@ -50,15 +60,17 @@ export default function CartItem({
                 </View>
 
                 {
-                    love ?  <View></View>: <View style={styles.cartInforBottom}>
-                    <Text
-                        style={styles.cartInforQuantity}
-                    >Số lượng: {item.number}
-                    </Text>
-                    <Button
-                        title="Xóa"
-                    />
-                </View> 
+                    love ? <View></View> :
+                     <View style={styles.cartInforBottom}>
+                        <Text
+                            style={styles.cartInforQuantity}
+                        >Số lượng: {item.number}
+                        </Text>
+                        <Button
+                            onPress={deleteProduct}
+                            title="Xóa"
+                        />
+                    </View>
                 }
 
 

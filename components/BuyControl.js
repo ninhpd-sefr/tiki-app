@@ -3,19 +3,38 @@ import React from 'react'
 import color from '../assets/constant/color'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CartScreens from '../screens/CartScreens';
-import HomeScreens from '../screens/HomeScreens';
-import ProductScreens from '../screens/ProductScreens';
-import ProfileScreens from '../screens/ProfileScreens';
+import { actAddProductToCart, actLoveProductToLove } from '../store/product/action';
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import LoveScreen from '../screens/LoveScreen';
+const item4 = require('../assets/4.jpg')
+
+export default function BuyControl({ 
+    // navigation
+ }) {
+
+    const navigation = useNavigation()
+    const dispatch = useDispatch()
+    const data = {
+        title: "Iphone 12 Promax - chính hãng",
+        deliverySpeed: "FAST",
+        delivery: "Giao tiết kiệm",
+        number: 1,
+        price: "150.000",
+        oldPrice: "200.000",
+        img: item4
+    }
 
 
-
-
-
-export default function BuyControl({navigation}) {
     return (
-        
+
         <View style={styles.buyContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity
+             onPress={() => {
+                dispatch(actLoveProductToLove(data))
+                navigation.navigate(LoveScreen)
+            }}
+            >
                 <View style={[styles.buyButtonLove, styles.buyButton]}>
                     <MaterialIcons style={styles.buyIcon} name='favorite' />
                     <Text style={styles.buyText}>Yêu Thích</Text>
@@ -25,13 +44,16 @@ export default function BuyControl({navigation}) {
             <TouchableOpacity>
                 <View style={[styles.buyButtonPrice, styles.buyButton]}>
                     {/* <MaterialIcons style={styles.buyIcon} name='shopping-cart' /> */}
-                    <Text style={[styles.buyText,styles.TextBold]}>Trả góp 0%</Text>
+                    <Text style={[styles.buyText, styles.TextBold]}>Trả góp 0%</Text>
                     <Text style={styles.buyText}>Mua trước trả sau</Text>
                 </View>
             </TouchableOpacity>
 
             <TouchableOpacity
-                  onPress={()=> navigation.navigate(CartScreens)}
+                onPress={() => {
+                    dispatch(actAddProductToCart(data))
+                    navigation.navigate(CartScreens)
+                }}
             >
                 <View style={[styles.buyButtonSubmit, styles.buyButton]}>
                     <Text style={[styles.buyText, styles.buyTextPrimary]}>Chọn mua</Text>
@@ -63,9 +85,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: color.primary,
     },
-    TextBold:{
+    TextBold: {
         fontSize: 21,
-        fontWeight:'bold'
+        fontWeight: 'bold'
     },
     buyText: {
         color: color.primary
