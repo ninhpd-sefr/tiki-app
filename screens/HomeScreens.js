@@ -5,16 +5,52 @@ import HomeSectionComponent from '../components/HomeSectionComponent';
 import dataDivice from '../constant/ConstantData'
 import CartScreens from './CartScreens';
 import color from '../assets/constant/color';
+import getAllProductFromAPI from '../services';
+import { useState } from 'react';
+import { useEffect } from 'react';
+
 
 export default function HomeScreens({ navigation }) {
 
+  const fakeData = dataDivice.fakeData
+  const [dataAPI, setDataAPI] = useState()
+  let listType = ['Tất cả']
+
+  useEffect(() => {
+    getAllProductFromAPI().then(data => {
+      setDataAPI(data)
+    })
+
+  }, [])
+
+
+  if (!dataAPI) {
+    return
+  }
+
+
+  dataAPI.map((item, index) => {
+    listType.push(item.type)
+  })
+  listType =  [...new Set(listType)]
+  
+  
+  const data = {
+    title: "Apple - hàng chính hãng",
+    filterList: listType,
+    productList: dataAPI
+  }
 
   return (
     <View>
       <StatusBar barStyle="light-content" />
+      <View>
+      </View>
       <View style={styles.headerContainer}>
         <View style={styles.inputContainer}>
-          <FontAwesome name='search' size={24} color={"#969696"} />
+          <FontAwesome
+            onPress={() => getAllProductFromAPI()}
+            name='search' size={24} color={"#969696"} />
           <Text style={styles.inputText}
           >Bạn tìm gì hôm nay</Text>
         </View>
@@ -22,7 +58,7 @@ export default function HomeScreens({ navigation }) {
         >
           <TouchableOpacity>
             <FontAwesome
-              onPress={() => navigation.navigate(CartScreens,{ key: new Date().getTime() })}
+              onPress={() => navigation.navigate(CartScreens, { key: new Date().getTime() })}
               name='shopping-cart' size={24} color={"#fff"} />
           </TouchableOpacity>
         </View>
@@ -31,11 +67,7 @@ export default function HomeScreens({ navigation }) {
       {/* Body container */}
       <View style={styles.bodyContainer}>
         <ScrollView>
-          {
-            dataDivice.dataDivice.map((data,index)=>(
-              <HomeSectionComponent data={data} key={index} navigation={navigation} />
-            ))
-          }
+              <HomeSectionComponent data={data} navigation={navigation} />
         </ScrollView>
       </View>
 
@@ -87,8 +119,6 @@ const styles = StyleSheet.create({
     paddingBottom: 200
   }
 });
-
-console.log();
 
 
 
