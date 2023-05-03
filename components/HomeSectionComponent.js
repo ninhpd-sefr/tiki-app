@@ -9,10 +9,9 @@ const item3 = require('../assets/3.jpg')
 const item4 = require('../assets/4.jpg')
 
 export default function HomeSectionComponent({
-  data,navigation
-}) {  
-  console.log(data);
-  
+  data, navigation
+}) {
+
   const dataSample = {
     title: "Điện thoại - máy tính bảng",
     filterList: [
@@ -21,20 +20,28 @@ export default function HomeSectionComponent({
       'Máy tính bảng',
       'Điện thoại',
     ],
-    imgList: [
-      { image1: item1, image2: item2 },
-      { image1: item2, image2: item3 },
-      { image1: item3, image2: item4 },
-      { image1: item4, image2: item1 },
-    ]
+    productList:  [{"__v": 0, "_id": "6452051447c88ed4a14e658d", "delivery": "Giao tiết kiệm", "deliverySpeed": "FAST", "image": ["https://cdn.tgdd.vn/Products/Images/522/242153/ipad-pro-129-inch-2021-m1-1-org.jpg"], "oldPrice": "32.990.000", "price": "29.990.000", "seller": "6451da1a47c88ed4a14e655a", "title": "iPad Pro 12.9 inch - Wifi - 256GB - M1 - 2021 - Chính hãng", "type": "Máy tính bảng"}, {"__v": 0, "_id": "6452051f47c88ed4a14e6590", "delivery": "Giao tiết kiệm", "deliverySpeed": "FAST", "image": ["https://cdn.tgdd.vn/Products/Images/522/242153/ipad-pro-129-inch-2021-m1-1-org.jpg"], "oldPrice": "32.990.000", "price": "29.990.000", "seller": "6451da1a47c88ed4a14e655a", "title": "iPad Pro 12.9 inch - Wifi - 256GB - M1 - 2021 - Chính hãng", "type": "Máy tính bảng"}, {"__v": 0, "_id": "6452052d47c88ed4a14e6593", "delivery": "Giao tiết kiệm", "deliverySpeed": "FAST", "image": ["https://cdn.tgdd.vn/Products/Images/522/246391/ipad-mini-wifi-64gb-2021-3-org.jpg"], "oldPrice": "14.990.000", "price": "13.490.000", "seller": "6451da1a47c88ed4a14e655a", "title": "iPad mini Wifi 64GB - 2021 - Chính hãng", "type": "Máy tính bảng"}, {"__v": 0, "_id": "6452053647c88ed4a14e6596", "delivery": "Giao tiết kiệm", "deliverySpeed": "FAST", "image": ["https://cdn.tgdd.vn/Products/Images/522/212690/ipad-2020-wifi-32gb-1-org.jpg"], "oldPrice": "9.490.000", "price": "8.990.000", "seller": "6451da1a47c88ed4a14e655a", "title": "iPad 10.2 inch Wifi 32GB - 2020 - Chính hãng", "type": "Máy tính bảng"}]
   }
   const [dataGet, setDataGet] = useState(data)
+  const [productFilter, setProductFilter] = useState(data.productList)
+  const [selectIdx, setSelectIdx] = useState(0)
+
 
   useEffect(() => {
     if (!dataGet) {
       setDataGet(dataSample)
     }
   }, [data])
+
+  const handleFilter = (type,idx) => {
+    setSelectIdx(idx)
+    if (type == 'Tất cả') {
+      setProductFilter(data.productList)
+      return
+    }
+    const name = dataGet.productList.filter(product => product.type === type);
+    setProductFilter(name)
+  }
 
 
   return (<View style={styles.sectionContainer}>
@@ -47,25 +54,27 @@ export default function HomeSectionComponent({
     {/* filter list */}
     <ScrollView horizontal={true}>
       <View style={styles.filterContainer}>
-        {dataSample.filterList.map((e, index) => (
-         <TouchableOpacity>
-           <View
-            key={index.toString()}
-            style={
-              index === 0
-                ? styles.filterActiveButtonContainer
-                : styles.filterInactiveButtonContainer
-            }>
-            <Text
+        {dataGet.filterList.map((e, index) => (
+          <TouchableOpacity
+            onPress={() => handleFilter(e,index)}
+          >
+            <View
+              key={index.toString()}
               style={
-                index === 0
-                  ? styles.filterActiveText
-                  : styles.filterInactiveText
+                index === selectIdx
+                  ? styles.filterActiveButtonContainer
+                  : styles.filterInactiveButtonContainer
               }>
-              {e}
-            </Text>
-          </View>
-         </TouchableOpacity>
+              <Text
+                style={
+                  index === selectIdx
+                    ? styles.filterActiveText
+                    : styles.filterInactiveText
+                }>
+                {e}
+              </Text>
+            </View>
+          </TouchableOpacity>
         ))}
       </View>
     </ScrollView>
@@ -74,30 +83,23 @@ export default function HomeSectionComponent({
 
     <ScrollView horizontal={true}>
       <View style={styles.listItemContainer}>
-        {dataSample.imgList.map((e, index) => (
-          <View key={index.toString()}>
-            <TouchableOpacity
-             onPress={() => navigation.navigate(ProductScreens)}
-            >
-              <HomeProductItem
-                name="Iphone 13 Pro Max"
-                image={e.image1}
-                price="8.699.000đ"
-              />
-            </TouchableOpacity>
+        {
+          productFilter.map((item, index) => (
+            <View key={index.toString()}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate(ProductScreens)}
+              >
+                <HomeProductItem
+                  type={item.type}
+                  name={item.title}
+                  image={item.image}
+                  price={item.price}
+                />
+              </TouchableOpacity>
+            </View>
+          ))
+        }
 
-            <TouchableOpacity
-             onPress={() => navigation.navigate(ProductScreens)}
-            >
-              <HomeProductItem
-                name="Iphone 13 Pro Max"
-                image={e.image2}
-                price="8.699.000đ"
-              />
-            </TouchableOpacity>
-
-          </View>
-        ))}
       </View>
     </ScrollView>
     {/*  */}

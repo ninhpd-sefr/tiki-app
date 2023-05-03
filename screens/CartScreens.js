@@ -26,10 +26,9 @@ export default function CartScreens({
     totalPrice += Number(item.price)
   })
 
-  console.log(totalPrice);
+  // console.log(totalPrice);
 
 
-  console.log('Cart', Cart);
 
   const handleSubmit = () =>{
     Alert.alert(

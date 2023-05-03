@@ -7,7 +7,7 @@ const item4 = require('../assets/4.jpg')
 export default function CartBody({
     love,navigation,HandleDeleteProduct,Cart
 }) {
-    console.log('Body:', Cart);
+    // console.log('Body:', Cart);
     
     const [data, setData] = useState(Cart)
 
