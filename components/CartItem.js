@@ -56,7 +56,7 @@ export default function CartItem({
                     >{item.price} đ</Text>
                     <Text
                         style={styles.cartInforPriceOld}
-                    > {item.oldPrice} đ</Text>
+                    > {item.price.replace(/^./, Number(item.price.charAt(0)) + 1)} đ</Text>
                 </View>
 
                 {

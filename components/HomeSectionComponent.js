@@ -2,6 +2,8 @@ import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'rea
 import HomeProductItem from './HomeProductItem';
 import { useEffect, useState } from 'react';
 import ProductScreens from '../screens/ProductScreens';
+import { useDispatch } from 'react-redux';
+import { actSeeProductDetail } from '../store/product/action';
 const banner = require('../assets/OIP.jpg');
 const item1 = require('../assets/OIPitem.jpg')
 const item2 = require('../assets/2.jpg')
@@ -11,6 +13,8 @@ const item4 = require('../assets/4.jpg')
 export default function HomeSectionComponent({
   data, navigation
 }) {
+
+  const dispatch = useDispatch()
 
   const dataSample = {
     title: "Điện thoại - máy tính bảng",
@@ -41,6 +45,11 @@ export default function HomeSectionComponent({
     }
     const name = dataGet.productList.filter(product => product.type === type);
     setProductFilter(name)
+  }
+
+  const handleSeeProduct = (item)=>{
+    dispatch(actSeeProductDetail(item))
+    navigation.navigate(ProductScreens)
   }
 
 
@@ -87,7 +96,7 @@ export default function HomeSectionComponent({
           productFilter.map((item, index) => (
             <View key={index.toString()}>
               <TouchableOpacity
-                onPress={() => navigation.navigate(ProductScreens)}
+                onPress={() => handleSeeProduct(item)}
               >
                 <HomeProductItem
                   type={item.type}

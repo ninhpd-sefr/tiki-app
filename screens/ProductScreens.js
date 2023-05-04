@@ -6,19 +6,26 @@ import BuyControl from '../components/BuyControl';
 import { useDispatch, useSelector } from 'react-redux';
 import { actAddProductToCart } from '../store/product/action';
 const item4 = require('../assets/productItem.jpg')
-export default function ProductScreens({ navigation }) {
+export default function ProductScreens({ 
+  navigation
+ }) {
+
+  const currentProduct = useSelector(state => state.Product.currentProduct)
+
+  
   return (
     <View style={styles.productContainer}>
       <View style={styles.productImg}>
         <Image style={styles.image} source={item4} />
       </View>
       <View style={styles.productInfo}>
-        <Text style={styles.productTitle}>Xe đạp trẻ em Thống Nhất Kitten TE20</Text>
+        <Text style={styles.productTitle}>{currentProduct.title}</Text>
         <Text style={styles.productFeedback}>Chưa có đánh giá</Text>
+        <Text style={styles.productFeedback}>{currentProduct.type}</Text>
         <View style={styles.productContainerPrice}>
-          <Text style={styles.productPrice}>2.000.000 đ</Text>
+          <Text style={styles.productPrice}>{currentProduct.price}đ</Text>
           <View style={styles.productPriceOldContainer}>
-            <Text style={styles.productPriceOld}>2.500.000 đ</Text>
+            <Text style={styles.productPriceOld}>{currentProduct.price.replace(/^./, Number(currentProduct.price.charAt(0)) + 1)}đ</Text>
             <Text> - 37%</Text>
           </View>
         </View>

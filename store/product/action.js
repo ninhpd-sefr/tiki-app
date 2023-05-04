@@ -1,4 +1,5 @@
 export const ADD_NUMBER = 'ADD_NUMBER'
+export const SEE_PRODUCT_DETAIL ='SEE_PRODUCT_DETAIL'
 export const ADD_PRODUCT_TO_CART ='ADD_PRODUCT_TO_CART'
 export const REMOVE_PRODUCT_TO_CART ='REMOVE_PRODUCT_TO_CART'
 export const CLEAR_CART ='CLEAR_CART'
@@ -14,6 +15,15 @@ export function actAddNumber(index) {
 }
 
 // CART
+
+export function actSeeProductDetail(product) {
+  console.log('da goi actSeeProductDetail');
+  
+  return {
+    type: SEE_PRODUCT_DETAIL,
+    payload: product
+  }
+}
 
 export function actAddProductToCart(product) {
   console.log('da goi actAddProductToCart');

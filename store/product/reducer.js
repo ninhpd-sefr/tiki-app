@@ -1,4 +1,4 @@
-import { ADD_LOVE_PRODUCT_TO_LOVE, ADD_NUMBER, ADD_PRODUCT_TO_CART, CLEAR_CART, REMOVE_PRODUCT_TO_CART } from "./action"
+import { ADD_LOVE_PRODUCT_TO_LOVE, ADD_NUMBER, ADD_PRODUCT_TO_CART, CLEAR_CART, REMOVE_PRODUCT_TO_CART, SEE_PRODUCT_DETAIL } from "./action"
 const item4 = require('../../assets/4.jpg')
 
 const initState = {
@@ -14,17 +14,13 @@ const initState = {
       img: item4
     }
   ],
-  love:[
-    {
-      title: "Iphone 12 Promax - chính hãng",
-      deliverySpeed: "FAST",
-      delivery: "Giao tiết kiệm",
-      number: 2,
-      price: "150.000",
-      oldPrice: "200.000",
-      img: item4
-    }
-  ]
+  love: [
+  ],
+  currentProduct: {
+    title: 'Iphone 12 promax',
+    price: '28.000.000',
+    oldPrice: '30.000.000'
+  }
 }
 
 function reducer(cartReducer = initState, action) {
@@ -36,6 +32,15 @@ function reducer(cartReducer = initState, action) {
       }
 
     // CART
+    case SEE_PRODUCT_DETAIL:
+      console.log('da goi reducer');
+
+      return {
+        ...cartReducer,
+        currentProduct: action.payload
+      }
+
+
     case ADD_PRODUCT_TO_CART:
       console.log('da goi reducer');
 
@@ -51,13 +56,13 @@ function reducer(cartReducer = initState, action) {
       console.log('da goi REMOVE_PRODUCT_TO_CART');
       const cartCurrent = cartReducer.cart
       const number = Number(action.payload)
-      cartCurrent.splice(0,1)
+      cartCurrent.splice(0, 1)
       return {
         ...cartReducer,
         cart: cartCurrent
       }
 
-      case CLEAR_CART:
+    case CLEAR_CART:
       console.log('da goi CLEAR_CART');
       return {
         ...cartReducer,
