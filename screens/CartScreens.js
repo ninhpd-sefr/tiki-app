@@ -23,7 +23,8 @@ export default function CartScreens({
   let totalPrice = 0;
 
   Cart.map((item  ) => {
-    totalPrice += Number(item.price)
+    let num = parseInt(item.price.replace(/\./g, ""));
+    totalPrice += num
   })
 
   // console.log(totalPrice);
@@ -79,7 +80,7 @@ export default function CartScreens({
             <View>
               <CartBody HandleDeleteProduct={HandleDeleteProduct} navigation={navigation} Cart={Cart} />
               <View style={styles.cartTotal}>
-              <Text style={styles.cartTotalText}>Tổng tiền : {totalPrice}.000 đ</Text>
+              <Text style={styles.cartTotalText}>Tổng tiền : {totalPrice.toLocaleString('vi-VN')}đ</Text>
                 <Button
                   onPress={handleSubmit}
                   title='submit'

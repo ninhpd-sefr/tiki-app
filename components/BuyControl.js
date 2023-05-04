@@ -4,7 +4,7 @@ import color from '../assets/constant/color'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CartScreens from '../screens/CartScreens';
 import { actAddProductToCart, actLoveProductToLove } from '../store/product/action';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import LoveScreen from '../screens/LoveScreen';
 const item4 = require('../assets/4.jpg')
@@ -12,15 +12,17 @@ const item4 = require('../assets/4.jpg')
 export default function BuyControl({ 
     // navigation
  }) {
-
+    const currentProduct = useSelector(state => state.Product.currentProduct)
+    console.log(currentProduct.delivery);
+    
     const navigation = useNavigation()
     const dispatch = useDispatch()
     const data = {
-        title: "Iphone 12 Promax - chính hãng",
-        deliverySpeed: "FAST",
-        delivery: "Giao tiết kiệm",
+        title: currentProduct.title,
+        deliverySpeed: currentProduct.deliverySpeed,
+        delivery: currentProduct.delivery,
         number: 1,
-        price: "150.000",
+        price: currentProduct.price,
         oldPrice: "200.000",
         img: item4
     }
