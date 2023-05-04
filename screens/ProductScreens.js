@@ -16,7 +16,7 @@ export default function ProductScreens({
   return (
     <View style={styles.productContainer}>
       <View style={styles.productImg}>
-        <Image style={styles.image} source={item4} />
+        <Image style={styles.image} source={currentProduct.image ?currentProduct.image : currentProduct.img} />
       </View>
       <View style={styles.productInfo}>
         <Text style={styles.productTitle}>{currentProduct.title}</Text>

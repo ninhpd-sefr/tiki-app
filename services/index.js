@@ -3,12 +3,16 @@ import API from './API';
 
 
 
-const getAllProductFromAPI = async () =>{
+export const getAllProductFromAPI = async () =>{
   const response = await axios.get(`${API}/v1/product`)
  
   return response.data
   
  }
 
-
-export default getAllProductFromAPI;
+ export const getAllSellerFromAPI = async () =>{
+  const response = await axios.get(`${API}/v1/seller`)
+ 
+  return response.data
+  
+ }

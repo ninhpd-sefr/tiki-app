@@ -2,23 +2,27 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import HomeSectionComponent from '../components/HomeSectionComponent';
-import dataDivice from '../constant/ConstantData'
+import image from '../constant/ConstantData'
 import CartScreens from './CartScreens';
 import color from '../assets/constant/color';
-import getAllProductFromAPI from '../services';
+import {getAllProductFromAPI, getAllSellerFromAPI} from '../services';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
 
 export default function HomeScreens({ navigation }) {
+  
 
-  const fakeData = dataDivice.fakeData
   const [dataAPI, setDataAPI] = useState()
+  const [sellerAPI, setSellerAPI] = useState()
   let listType = ['Tất cả']
 
   useEffect(() => {
     getAllProductFromAPI().then(data => {
       setDataAPI(data)
+    })
+    getAllSellerFromAPI().then(seller=>{
+      setSellerAPI(seller);
     })
 
   }, [])
@@ -34,12 +38,7 @@ export default function HomeScreens({ navigation }) {
   })
   listType =  [...new Set(listType)]
   
-  
-  const data = {
-    title: "Apple - hàng chính hãng",
-    filterList: listType,
-    productList: dataAPI
-  }
+
 
   return (
     <View>
@@ -67,7 +66,12 @@ export default function HomeScreens({ navigation }) {
       {/* Body container */}
       <View style={styles.bodyContainer}>
         <ScrollView>
-              <HomeSectionComponent data={data} navigation={navigation} />
+          {
+            sellerAPI.map((brand,index)=>(
+              <HomeSectionComponent
+               brand={brand} img ={image.image} index ={index} key={index} dataAPI={dataAPI} listType={listType} navigation={navigation} />
+            ))
+          }
         </ScrollView>
       </View>
 
