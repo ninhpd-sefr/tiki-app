@@ -11,6 +11,8 @@ export default function LoveScreen({ navigation }) {
 
   const Cart = useSelector(state => state.Product.love)
 
+  console.log(Cart);
+  
 
   return (
     <ScrollView>

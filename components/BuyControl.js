@@ -13,7 +13,6 @@ export default function BuyControl({
     // navigation
  }) {
     const currentProduct = useSelector(state => state.Product.currentProduct)
-    console.log(currentProduct.delivery);
     
     const navigation = useNavigation()
     const dispatch = useDispatch()
@@ -24,7 +23,7 @@ export default function BuyControl({
         number: 1,
         price: currentProduct.price,
         oldPrice: "200.000",
-        img: item4
+        img: currentProduct.image
     }
 
 

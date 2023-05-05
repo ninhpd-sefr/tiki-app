@@ -3,70 +3,43 @@ const item1 = require('../assets/OIPitem.jpg')
 const item2 = require('../assets/2.jpg')
 const item3 = require('../assets/3.jpg')
 const item4 = require('../assets/4.jpg')
+const dtAsus = require('../assets/đtAsus.jpg')
+const ltAsus = require('../assets/ltAsus.jpg')
+const mtbAsus = require('../assets/mtbAsus.jpg')
+const dtSamsung = require('../assets/dtSamsung.jpg')
+const ltSamsung = require('../assets/ltSamsung.jpg')
+const mtbSamsung = require('../assets/mtbSamsung.jpg')
+const dtXiaomi = require('../assets/dtXiaomi.jpg')
+const ltXiaomi = require('../assets/ltXiaomi.jpg')
+const mtbXiaomi = require('../assets/mtbXiaomi.jpg')
 
 
 
 
-const dataDivice = [{
-    title: "Điện thoại SmartPhone",
-    filterList: [
-        'Tất cả',
-        'Điện thoại SmartPhone',
-        'Máy tính bảng',
-        'Điện thoại bàn',
-    ],
-    imgList: [
-        { image1: item1, image2: item2 },
-        { image1: item2, image2: item3 },
-        { image1: item3, image2: item4 },
-        { image1: item4, image2: item1 },
-    ]
-}, {
-    title: "Thế giới sắc đẹp - làm đẹp",
-    filterList: [
-        'Tất cả',
-        'Chăm sóc body',
-        'Kem dưỡng',
-        'Khẩu trang',
-    ],
-    imgList: [
-        { image1: item1, image2: item2 },
-        { image1: item2, image2: item3 },
-        { image1: item3, image2: item4 },
-        { image1: item4, image2: item1 },
-    ]
-}, {
-    title: "Điện gia dụng",
-    filterList: [
-        'Tất cả',
-        'Thiết bị điện',
-        'Ổ cắm',
-        'Dây điện',
-    ],
-    imgList: [
-        { image1: item1, image2: item2 },
-        { image1: item2, image2: item3 },
-        { image1: item3, image2: item4 },
-        { image1: item4, image2: item1 },
-    ]
-}, {
-    title: "Đồng hồ và trang sức",
-    filterList: [
-        'Tất cả',
-        'Đồng hồ cơ',
-        'Đồng hồ thông minh',
-        'Trang sức vàng',
-    ],
-    imgList: [
-        { image1: item1, image2: item2 },
-        { image1: item2, image2: item3 },
-        { image1: item3, image2: item4 },
-        { image1: item4, image2: item1 },
-    ]
+
+
+const image = {
+    iphone:{
+        dt: item4,
+        lt:item2,
+        mtb:item3
+    },
+    xiaomi:{
+        dt:dtXiaomi,
+        lt:ltXiaomi,
+        mtb:mtbXiaomi
+    },
+    samsung:{
+        dt:dtSamsung,
+        lt:ltSamsung,
+        mtb:mtbSamsung
+    },
+    asus:{
+        dt:dtAsus,
+        lt:ltAsus,
+        mtb:mtbAsus
+    }
 }
-]
-
-
 
 const fakeData = [{
     title: "Điện thoại SmartPhone",
@@ -423,5 +396,5 @@ const fakeData = [{
 
 
 export default {
-    dataDivice,fakeData
+    fakeData,image
 };
