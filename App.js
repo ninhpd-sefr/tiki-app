@@ -12,6 +12,7 @@ import ProductScreens from './screens/ProductScreens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CartScreens from './screens/CartScreens';
 import LoveScreen from './screens/LoveScreen';
+import LoginScreens from './screens/LoginScreens';
 const Stack = createNativeStackNavigator();
 
 const store = createStore(
@@ -79,6 +80,11 @@ export default function App() {
           <Tab.Screen
             name="CartScreens"
             component={CartScreens}
+            options={{ tabBarButton: () => null, tabBarVisible: false }}
+          />
+           <Tab.Screen
+            name="LoginScreens"
+            component={LoginScreens}
             options={{ tabBarButton: () => null, tabBarVisible: false }}
           />
         </Tab.Navigator>

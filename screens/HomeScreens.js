@@ -8,6 +8,7 @@ import color from '../assets/constant/color';
 import {getAllProductFromAPI, getAllSellerFromAPI} from '../services';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import LoginScreens from './LoginScreens';
 
 
 export default function HomeScreens({ navigation }) {
@@ -48,7 +49,11 @@ export default function HomeScreens({ navigation }) {
       <View style={styles.headerContainer}>
         <View style={styles.inputContainer}>
           <FontAwesome
-            onPress={() => getAllProductFromAPI()}
+            onPress={() =>{
+              console.log('ninh');
+              
+              navigation.navigate(LoginScreens)
+            }}
             name='search' size={24} color={"#969696"} />
           <Text style={styles.inputText}
           >Bạn tìm gì hôm nay</Text>
