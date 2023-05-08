@@ -7,23 +7,63 @@ import { useState } from 'react';
 import { TextInput } from 'react-native';
 import color from '../assets/constant/color';
 import HomeScreens from './HomeScreens';
+import { checkLoginFromAPI, registerAccountFromAPI } from '../services';
 
 
 const LoginScreens = () => {
+    const [msg, setMsg] = useState('')
+    const [msgSuccess, setMsgSuccess] = useState('')
+
+
     const [nameAccount, setNameAccount] = useState('');
     const [passwordAccount, setPasswordAccount] = useState('');
 
+    // login
+    const [loginData, setLoginData] = useState(null);
+
+    const handleLogin = async () => {
+        try {
+            // call function to check
+            const data = await checkLoginFromAPI(nameAccount, passwordAccount);
+            setLoginData(data.message);
+            navigation.navigate(HomeScreens)
+            setNameAccount('')
+            setPasswordAccount('')
+        } catch (error) {
+            // Xử lý lỗi khi đăng nhập thất bại
+            console.error("error.message");
+            setMsg('Hãy đăng nhập lại')
+            setMsgSuccess('')
+        }
+    }
 
     const [isRegister, SetIsRegister] = useState(false)
+
+    // register
+
+    const handleRegister = async () => {
+        try {
+            const response = await registerAccountFromAPI(nameAccount, passwordAccount);
+            console.log(response);
+            SetIsRegister(false)
+            setNameAccount('')
+            setPasswordAccount('')
+            setMsg('')
+            setMsgSuccess('Bạn đăng kí thành công, Hãy đăng nhập')
+        } catch (error) {
+            console.error(error.message);
+            // Xử lý khi đăng ký thất bại
+            setMsg('Hãy đăng kí lại')
+            setMsgSuccess('')
+            setNameAccount('')
+            setPasswordAccount('')
+        }
+    };
 
     const navigation = useNavigation()
     useLayoutEffect(() => {
         navigation.setOptions({ tabBarVisible: false });
     }, [navigation]);
-
-    const handleLogin = ()=>{
-        navigation.navigate(HomeScreens)
-    }
 
     return (
         <View style={styles.loginContainer}>
@@ -33,36 +73,38 @@ const LoginScreens = () => {
                     source={{ uri: 'https://senshop.com.vn/wp-content/uploads/2019/05/sinh-nhat-tiki.png' }}
                 />
             </View>
-
             {
                 isRegister ?
                     // Register
                     <View style={styles.loginBody}>
                         <Text style={styles.loginBodyHeader}>Xin chào,</Text>
                         <Text style={styles.loginBodyHeaderSub}>Hãy đăng kí để tham gia mua hàng</Text>
+                        <Text  style={styles.loginMsg}>{msg}</Text>
                         <View style={styles.loginBodyInput}>
                             <TextInput
                                 style={styles.input}
                                 placeholder="Tên tài khoản ..."
                                 placeholderTextColor="#666"
-                                onChangeText={(e) => setNameAccount(e.target.value)}
+                                onChangeText={(e) => setNameAccount(e)}
                                 value={nameAccount}
                             />
                             <TextInput
                                 style={styles.input}
                                 placeholder="Mật khẩu ..."
                                 placeholderTextColor="#666"
-                                onChangeText={(e) => setPasswordAccount(e.target.value)}
+                                onChangeText={(e) => setPasswordAccount(e)}
                                 value={passwordAccount}
                             />
                             <View style={styles.register}>
-                                
-                                <TouchableOpacity style={styles.button}>
+
+                                <TouchableOpacity
+                                    onPress={handleRegister}
+                                    style={styles.button}>
                                     <Text style={styles.text}>Đăng kí</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity 
-                                onPress={()=> SetIsRegister(false)}
-                                style={styles.button}>
+                                <TouchableOpacity
+                                    onPress={() => SetIsRegister(false)}
+                                    style={styles.button}>
                                     <Text style={styles.text}>Đăng nhập nếu có tài khoản</Text>
                                 </TouchableOpacity>
                             </View>
@@ -73,27 +115,34 @@ const LoginScreens = () => {
                         <Text style={styles.loginBodyHeader}>Xin chào,</Text>
                         <Text style={styles.loginBodyHeaderSub}>Đăng nhập hoặc
                             <Text style={styles.loginBodyHeaderMove}
-                                onPress={() => SetIsRegister(true)}
+                                onPress={() => {
+                                    setMsg('')
+                                    setNameAccount('')
+                                    setPasswordAccount('')
+                                    SetIsRegister(true)
+                                }}
                             > đăng kí tài khoản</Text>
                         </Text>
+                        <Text  style={styles.loginMsg}>{msg}</Text>
+                        <Text  style={styles.loginMsgSuccess}>{msgSuccess}</Text>
                         <View style={styles.loginBodyInput}>
                             <TextInput
                                 style={styles.input}
                                 placeholder="Tên tài khoản ..."
                                 placeholderTextColor="#666"
-                                onChangeText={(e) => setNameAccount(e.target.value)}
+                                onChangeText={(e) => setNameAccount(e)}
                                 value={nameAccount}
                             />
                             <TextInput
                                 style={styles.input}
                                 placeholder="Mật khẩu ..."
                                 placeholderTextColor="#666"
-                                onChangeText={(e) => setPasswordAccount(e.target.value)}
+                                onChangeText={(e) => setPasswordAccount(e)}
                                 value={passwordAccount}
                             />
                             <TouchableOpacity
-                            onPress={handleLogin}
-                            style={styles.button}>
+                                onPress={handleLogin}
+                                style={styles.button}>
                                 <Text style={styles.text}>Đăng nhập</Text>
                             </TouchableOpacity>
                         </View>
@@ -147,5 +196,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     }, register: {
         // flexDirection: 'row'
+    },loginMsg:{
+        color:"red"
+    },loginMsgSuccess:{
+        color:color.primary
     }
 })
